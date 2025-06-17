@@ -26,6 +26,9 @@ jobs:
   trigger-remote-workflow:
     runs-on: ubuntu-22.04
     steps:
+      - name: Checkout Infra Repo
+        uses: actions/checkout@v3
+
       - name: Detect changed folders
         id: changed
         uses: dorny/paths-filter@v3
