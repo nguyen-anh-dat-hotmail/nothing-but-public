@@ -40,7 +40,7 @@ jobs:
 
       - name: Workflow Dispatch
         run: |
-          curl -X POST https://api.github.com/repos/<org>/<infra-repo>/dispatches \
+          curl -X POST https://api.github.com/repos/${{ github.repository_owner }}/devops/dispatches \
           -H "Authorization: token ${{ secrets.RDPAT }}" \
           -H "Accept: application/vnd.github.v3+json" \
           -d '{
@@ -48,7 +48,7 @@ jobs:
                 "client_payload": {
                   "frontend": '${{ steps.changed.outputs.frontend }}',
                   "backend": '${{ steps.changed.outputs.backend }}',
-                  "uiux": '${{ steps.changed.outputs.uiux }}',
+                  "other": '${{ steps.changed.outputs.other }}',
                   "sha": "${{ github.sha }}",
                   "branch": "${{ github.ref_name }}"
                 }
