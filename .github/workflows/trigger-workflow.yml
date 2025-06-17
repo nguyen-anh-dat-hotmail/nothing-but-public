@@ -49,9 +49,9 @@ jobs:
           -d '{
                 "event_type": "app-update",
                 "client_payload": {
-                  "frontend": '${{ steps.changed.outputs.frontend }}',
-                  "backend": '${{ steps.changed.outputs.backend }}',
-                  "others": '${{ steps.changed.outputs.others }}',
+                  "frontend": "${{ steps.changed.outputs.frontend }}",
+                  "backend": "${{ steps.changed.outputs.backend }}",
+                  "other": "${{ steps.changed.outputs.other }}",
                   "sha": "${{ github.sha }}",
                   "branch": "${{ github.ref_name }}"
                 }
