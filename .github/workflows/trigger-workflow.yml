@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Detect changed folders
         id: changed
-        uses: dorny/paths-filter
+        uses: dorny/paths-filter@v3
         with:
           filters: |
             frontend:
@@ -48,7 +48,7 @@ jobs:
                 "client_payload": {
                   "frontend": '${{ steps.changed.outputs.frontend }}',
                   "backend": '${{ steps.changed.outputs.backend }}',
-                  "other": '${{ steps.changed.outputs.others }}',
+                  "others": '${{ steps.changed.outputs.others }}',
                   "sha": "${{ github.sha }}",
                   "branch": "${{ github.ref_name }}"
                 }
