@@ -1,0 +1,55 @@
+# This is a basic workflow to trigger workflow in another repository
+
+name: Trigger Workflow In Remote Repository
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "dev/**" ]
+    paths:
+      - 'fe/**'
+      - 'be/**'
+      - 'ot/**'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'fe/**'
+      - 'be/**'
+      - 'ot/**'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  trigger-remote-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Detect changed folders
+        id: changed
+        uses: dorny/paths-fileter@v3
+        with:
+          filters: |
+            frontend:
+              - 'fe/**'
+            backend:
+              - 'be/**'
+            other:
+              - 'ot/**'
+
+      - name: Workflow Dispatch
+        run: |
+          curl -X POST https://api.github.com/repos/<org>/<infra-repo>/dispatches \
+          -H "Authorization: token ${{ secrets.RDPAT }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          -d '{
+                "event_type": "component_update",
+                "client_payload": {
+                  "frontend": '${{ steps.changed.outputs.frontend }}',
+                  "backend": '${{ steps.changed.outputs.backend }}',
+                  "uiux": '${{ steps.changed.outputs.uiux }}',
+                  "sha": "${{ github.sha }}",
+                  "branch": "${{ github.ref_name }}"
+                }
+              }'
