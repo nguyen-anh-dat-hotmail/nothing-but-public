@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Detect changed folders
         id: changed
-        uses: dorny/paths-fileter@v3
+        uses: dorny/path-filter@v3
         with:
           filters: |
             frontend:
