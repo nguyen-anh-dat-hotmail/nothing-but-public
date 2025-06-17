@@ -46,9 +46,9 @@ jobs:
           -d '{
                 "event_type": "saas_update",
                 "client_payload": {
-                  "frontend": '${{ steps.changed.outputs.frontend }}',
-                  "backend": '${{ steps.changed.outputs.backend }}',
-                  "other": '${{ steps.changed.outputs.other }}',
+                  "frontend": "${{ steps.changed.outputs.frontend }}",
+                  "backend": "${{ steps.changed.outputs.backend }}",
+                  "other": "${{ steps.changed.outputs.other }}",
                   "sha": "${{ github.sha }}",
                   "branch": "${{ github.ref_name }}"
                 }
