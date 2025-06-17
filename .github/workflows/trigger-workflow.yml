@@ -10,13 +10,13 @@ on:
     paths:
       - 'fe/**'
       - 'be/**'
-      - 'ot/**'
+      - 'others/**'
   pull_request:
     branches: [ "main" ]
     paths:
       - 'fe/**'
       - 'be/**'
-      - 'ot/**'
+      - 'others/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -26,6 +26,9 @@ jobs:
   trigger-remote-workflow:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Infra Repo
+        uses: actions/checkout@v3
+
       - name: Detect changed folders
         id: changed
         uses: dorny/paths-filter@v3
@@ -35,8 +38,8 @@ jobs:
               - 'fe/**'
             backend:
               - 'be/**'
-            other:
-              - 'ot/**'
+            others:
+              - 'others/**'
 
       - name: Workflow Dispatch
         run: |
@@ -44,7 +47,7 @@ jobs:
           -H "Authorization: token ${{ secrets.RDPAT }}" \
           -H "Accept: application/vnd.github.v3+json" \
           -d '{
-                "event_type": "saas_update",
+                "event_type": "app-update",
                 "client_payload": {
                   "frontend": "${{ steps.changed.outputs.frontend }}",
                   "backend": "${{ steps.changed.outputs.backend }}",
