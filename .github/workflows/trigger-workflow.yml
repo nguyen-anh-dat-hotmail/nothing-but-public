@@ -10,13 +10,13 @@ on:
     paths:
       - 'fe/**'
       - 'be/**'
-      - 'ot/**'
+      - 'others/**'
   pull_request:
     branches: [ "main" ]
     paths:
       - 'fe/**'
       - 'be/**'
-      - 'ot/**'
+      - 'others/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -35,8 +35,8 @@ jobs:
               - 'fe/**'
             backend:
               - 'be/**'
-            other:
-              - 'ot/**'
+            others:
+              - 'others/**'
 
       - name: Workflow Dispatch
         run: |
@@ -48,7 +48,7 @@ jobs:
                 "client_payload": {
                   "frontend": '${{ steps.changed.outputs.frontend }}',
                   "backend": '${{ steps.changed.outputs.backend }}',
-                  "other": '${{ steps.changed.outputs.other }}',
+                  "other": '${{ steps.changed.outputs.others }}',
                   "sha": "${{ github.sha }}",
                   "branch": "${{ github.ref_name }}"
                 }
