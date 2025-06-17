@@ -44,7 +44,7 @@ jobs:
           -H "Authorization: token ${{ secrets.RDPAT }}" \
           -H "Accept: application/vnd.github.v3+json" \
           -d '{
-                "event_type": "saas_update",
+                "event_type": "app-update",
                 "client_payload": {
                   "frontend": '${{ steps.changed.outputs.frontend }}',
                   "backend": '${{ steps.changed.outputs.backend }}',
