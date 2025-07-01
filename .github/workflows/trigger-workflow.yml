@@ -6,11 +6,12 @@ name: Trigger Workflow In Remote Repository
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "dev/**" ]
+    branches: [ "feat/**" ]
     paths:
       - 'fe/**'
       - 'be/**'
       - 'others/**'
+      - '.github/workflow/**'
   pull_request:
     branches: [ "main" ]
     paths:
@@ -44,7 +45,7 @@ jobs:
       - name: Workflow Dispatch
         run: |
           curl -X POST https://api.github.com/repos/${{ github.repository_owner }}/devops/dispatches \
-          -H "Authorization: token ${{ secrets.RDPAT }}" \
+          -H "Authorization: token ${{ secrets.PAT }}" \
           -H "Accept: application/vnd.github.v3+json" \
           -d '{
                 "event_type": "app-update",
